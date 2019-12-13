@@ -25,6 +25,7 @@ import os // os_log
 /// - parameter message: The message to print.
 /// - parameter level: The `LogLevel` of the message, used to determine whether it is emitted.
 public func log(_ message: String, level: LogLevel = .default) {
+    print("Logger: [\(level)]: \(message)")
   Logger.shared.log(message, level: level)
 }
 

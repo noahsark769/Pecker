@@ -4,17 +4,27 @@ import TSCUtility
 import TSCBasic
 
 fileprivate func main(_ arguments: [String]) -> Int32 {
+    print("Running pecker...")
     let url = URL(fileURLWithPath: arguments.first!)
     let options = processArguments(commandName: url.lastPathComponent, Array(arguments.dropFirst()))
+    print("Running with options:")
+    print(options)
 
     switch options.mode {
     case .detect:
         do {
+            print("Running detection...")
             let configuration = try createConfiguration(options: options)
+            print("Configuration:")
+            print(configuration)
             let analyzer = try Analyzer(configuration: configuration)
+            print("Analyzing...")
             let unusedSources = try analyzer.analyze()
+            print("Reporting...")
             configuration.reporter.report(configuration, sources: unusedSources)
         } catch {
+            print("Uh oh: encountered generalized error:")
+            print(error)
             log(error.localizedDescription, level: .error)
             return 1
         }
